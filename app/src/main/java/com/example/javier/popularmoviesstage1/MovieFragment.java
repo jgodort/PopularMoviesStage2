@@ -1,8 +1,5 @@
 package com.example.javier.popularmoviesstage1;
 
-import android.app.ProgressDialog;
-import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -16,8 +13,6 @@ import android.widget.GridView;
 
 import com.example.javier.popularmoviesstage1.adapters.MovieAdapter;
 import com.example.javier.popularmoviesstage1.api.MovieAPI;
-import com.example.javier.popularmoviesstage1.async.AsyncResponse;
-import com.example.javier.popularmoviesstage1.async.FetchMoviesTask;
 import com.example.javier.popularmoviesstage1.model.MovieEntity;
 
 import java.util.ArrayList;
@@ -40,10 +35,6 @@ public class MovieFragment extends Fragment {
         public void onItemSelected(MovieEntity movie);
     }
 
-    /**
-     * progress dialog to show user that the backup is processing.
-     */
-    private ProgressDialog dialog;
 
     public MovieFragment() {
         this.setHasOptionsMenu(true);
@@ -59,7 +50,6 @@ public class MovieFragment extends Fragment {
 
 
         mListMovies = new ArrayList<>();
-        dialog = new ProgressDialog(inflater.getContext());
         mMoviesAdapter = new MovieAdapter(getActivity(), mListMovies);
         fetchMoviesToMovieTask(MovieAPI.POPULAR_CALL);
 
@@ -72,9 +62,7 @@ public class MovieFragment extends Fragment {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
 
                 MovieAdapter movieAdapter = (MovieAdapter) parent.getAdapter();
-//                Intent intent = new Intent(getActivity(), DetailActivity.class);
-//                intent.putExtra(DetailFragment.SELECTED_MOVIE, movieAdapter.getItem(position));
-//                startActivity(intent);
+
                 ((Callback) getActivity()).onItemSelected(movieAdapter.getItem(position));
             }
         });
@@ -102,25 +90,7 @@ public class MovieFragment extends Fragment {
     }
 
     private void fetchMoviesToMovieTask(String criteriaCall) {
-        FetchMoviesTask fetchMoviesTask = new FetchMoviesTask(getContext()
-                , new AsyncResponse() {
-            @Override
-            public void onPostExecuteDelegate(List<MovieEntity> results) {
-                if (dialog.isShowing()) {
-                    dialog.dismiss();
-                }
-                mListMovies = results;
-                updatePosterAdapter();
-            }
 
-            @Override
-            public void onPreExecute() {
-                dialog.setMessage("Loading...");
-                dialog.show();
-            }
-        });
-        fetchMoviesTask.execute(criteriaCall);
-        mMoviesAdapter.notifyDataSetChanged();
     }
 
     // updates the ArrayAdapter of poster images

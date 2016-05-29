@@ -1,28 +1,54 @@
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:baselineAligned="false"
-    android:divider="?android:attr/dividerHorizontal"
-    android:orientation="horizontal"
-    tools:context="com.example.javier.popularmoviesstage1.MainActivity">
+    android:fitsSystemWindows="true"
+    tools:context=".MainActivity">
 
-    <!--
-    This layout is a two-pane layout for the Items master/detail flow.
-    -->
+    <android.support.design.widget.AppBarLayout
+        android:id="@+id/app_bar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:theme="@style/AppTheme.AppBarOverlay">
 
-    <fragment
-        android:id="@+id/fragment_movies"
-        android:name="com.example.javier.popularmoviesstage1.MovieFragment"
-        android:layout_width="0dp"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/toolbar"
+            android:layout_width="match_parent"
+            android:layout_height="?attr/actionBarSize"
+            android:popupTheme="@style/AppTheme.PopupOverlay" />
+
+        <android.support.design.widget.TabLayout
+            android:id="@+id/tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"></android.support.design.widget.TabLayout>
+
+    </android.support.design.widget.AppBarLayout>
+
+    <LinearLayout xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2"
-        tools:layout="@android:layout/list_content" />
+        android:baselineAligned="false"
+        android:divider="?android:attr/dividerHorizontal"
+        android:orientation="horizontal"
+        android:showDividers="middle"
+        app:layout_behavior="@string/appbar_scrolling_view_behavior"
+        tools:context=".MainActivity">
 
-    <FrameLayout
-        android:id="@+id/movie_detail_container"
-        android:layout_width="0dp"
-        android:layout_height="match_parent"
-        android:layout_weight="4" />
+        <android.support.v4.view.ViewPager
+            android:id="@+id/viewPager"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="3" />
 
-</LinearLayout>
+        <FrameLayout
+            android:id="@+id/movie_detail_container"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:layout_weight="6" />
+    </LinearLayout>
+
+</android.support.design.widget.CoordinatorLayout>

@@ -1,15 +1,25 @@
 package com.example.javier.popularmoviesstage1;
 
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
-import android.support.v7.app.ActionBarActivity;
+import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
+import android.support.v4.app.ListFragment;
+import android.support.v4.view.ViewPager;
+import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.RecyclerView;
+import android.support.v7.widget.Toolbar;
 
 import com.example.javier.popularmoviesstage1.model.MovieEntity;
 
-public class MainActivity extends ActionBarActivity implements MovieFragment.Callback {
+import java.util.ArrayList;
+import java.util.List;
+
+public class MainActivity extends AppCompatActivity implements MovieFragment.Callback {
 
     private static final String DETAILFRAGMENT_TAG = "DFTAG";
+    private RecyclerView mRecyclerView;
+
 
     private boolean mTwoPane = false;
 
@@ -17,6 +27,30 @@ public class MainActivity extends ActionBarActivity implements MovieFragment.Cal
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //Binding the views.
+        Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
+        ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
+        TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
+
+        //Configuring  the toolbar.
+        //setSupportActionBar(toolbar);
+        //toolbar.setTitle(getTitle());
+
+        //Configuring the tabLayout
+        tabLayout.addTab(tabLayout.newTab().setText("Popular"));
+        tabLayout.addTab(tabLayout.newTab().setText("Top Rated"));
+        tabLayout.addTab(tabLayout.newTab().setText("Favorites"));
+        List<Fragment> listFraments = new ArrayList<>();
+        for (int i = 0; i < 3; i++) {
+            Bundle bundle = new Bundle();
+            bundle.putInt("QUERY_TYPE", i);
+            listFraments.add(GenericFragment.instantiate(this, GenericFragment.class.getName(), bundle));
+        }
+
+        viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), listFraments));
+        tabLayout.setupWithViewPager(viewPager);
+
 
         if (findViewById(R.id.movie_detail_container) != null) {
             // The detail container view will be present only in the large-screen layouts

@@ -21,26 +21,12 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<MovieEntity>> 
     private Context mContext;
 
 
-
-    public FetchMoviesTask(Context context,AsyncResponse vdelegate) {
-        mContext=context;
+    public FetchMoviesTask(Context context, AsyncResponse vdelegate) {
+        mContext = context;
         delegate = vdelegate;
 
     }
 
-    @Override
-    protected void onPreExecute() {
-        delegate.onPreExecute();
-    }
-
-    @Override
-    protected void onPostExecute(List<MovieEntity> movieEntities) {
-
-        if (movieEntities != null) {
-            delegate.onPostExecuteDelegate(movieEntities);
-        }
-
-    }
 
     /**
      * Override this method to perform a computation on a background thread. The
@@ -84,5 +70,14 @@ public class FetchMoviesTask extends AsyncTask<String, Void, List<MovieEntity>> 
         return moviesObtained;
     }
 
+    @Override
+    protected void onPostExecute(List<MovieEntity> movieEntities) {
+        delegate.processMovies(movieEntities);
+        super.onPostExecute(movieEntities);
+    }
+
+    public interface AsyncResponse {
+        void processMovies(List<MovieEntity> movies);
+    }
 
 }
