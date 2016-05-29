@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="grey">#cccccc</color>
+    <color name="movies_light_orange">#f4d764</color>
+    <color name="movie_orange">#f4931c</color>
+    <color name="movie_dark_orange">#d58835</color>
+</resources>
