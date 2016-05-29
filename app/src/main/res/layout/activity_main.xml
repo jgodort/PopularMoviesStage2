@@ -1,4 +1,4 @@
-<fragment xmlns:android="http://schemas.android.com/apk/res/android"
+<!--<fragment xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/fragment_movie"
     android:name="com.example.javier.popularmoviesstage1.MovieFragment"
@@ -7,4 +7,12 @@
     android:layout_marginLeft="16dp"
     android:layout_marginRight="16dp"
     tools:context="com.example.javier.popularmoviesstage1.MovieFragment"
-    tools:layout="@android:layout/list_content" />
+    tools:layout="@android:layout/list_content" />-->
+<android.support.v7.widget.RecyclerView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/fragment_movie"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    app:spanCount="2"
+    tools:context=".MainActivity" />
