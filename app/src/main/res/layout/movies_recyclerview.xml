@@ -3,9 +3,10 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/movie_recyclerview"
+    android:name="com.example.javier.popularmoviesstage2.MovieGridFragment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     app:layoutManager="GridLayoutManager"
-    app:spanCount="2"
-    tools:context=".MainActivity"
+    app:spanCount="3"
+    tools:context="Activities.MainActivity"
     tools:listitem="@layout/custom_item" />

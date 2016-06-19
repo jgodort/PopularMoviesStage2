@@ -4,4 +4,6 @@
     <color name="movies_light_orange">#f4d764</color>
     <color name="movie_orange">#f4931c</color>
     <color name="movie_dark_orange">#d58835</color>
+    <color name="favorite_default">#fbfbfb</color>
+    <color name="favorite_checked">#96281B</color>
 </resources>

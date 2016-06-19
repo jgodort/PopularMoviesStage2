@@ -4,4 +4,8 @@
     <string name="action_sort_popular">Sort by Popularity</string>
     <string name="action_sort_rated">Sort by Rating</string>
     <string name="title_activity_detail">Details</string>
+    <string name="releaseDate" translatable="true">Release Date:</string>
+    <string name="popular_tag" translatable="false">Popular</string>
+    <string name="topRated_tag" translatable="false">Top Rated</string>
+    <string name="favorites_tag" translatable="false">Favorites</string>
 </resources>
