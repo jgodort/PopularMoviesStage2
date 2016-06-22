@@ -13,7 +13,7 @@
     <android.support.design.widget.AppBarLayout
         android:id="@+id/app_bar"
         android:layout_width="match_parent"
-        android:layout_height="200dp"
+        android:layout_height="300dp"
         android:fitsSystemWindows="true"
         android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
 
@@ -58,7 +58,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center_vertical|start"
-        android:layout_margin="16dp"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        app:backgroundTint="@color/favorite_default"
         android:src="@drawable/ic_favorite_black_24dp"
         app:layout_anchor="@+id/scrollView"
         app:layout_anchorGravity="top|end" />

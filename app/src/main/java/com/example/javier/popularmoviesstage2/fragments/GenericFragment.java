@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,38 +29,42 @@ import java.util.List;
  * Created by javie on 29/05/2016.
  */
 
-public class  GenericFragment extends Fragment implements FetchMoviesTask.AsyncResponse {
+public class GenericFragment extends Fragment implements FetchMoviesTask.AsyncResponse {
 
+    private static final String LOG_TAG = GenericFragment.class.getSimpleName();
 
     private RecyclerView mRecyclerView;
-    private Integer mQueryFetch;
+    private int mQueryFetch;
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
+        Log.d(LOG_TAG, "Entering to onCreate");
         mQueryFetch = this.getArguments().getInt(Constants.QUERY_FETCH_KEY);
         this.getArguments().clear();
         super.onCreate(savedInstanceState);
+        Log.d(LOG_TAG, "Leaving to onCreate");
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
+        Log.d(LOG_TAG, "Entering to onCreateView");
         super.onCreateView(inflater, container, savedInstanceState);
         View rootView = inflater.inflate(R.layout.movies_recyclerview, container, false);
         mRecyclerView = (RecyclerView) rootView.findViewById(R.id.movie_recyclerview);
-        assert mRecyclerView!=null;
+        assert mRecyclerView != null;
         initializeRecyclerView(mRecyclerView);
 
         fetchMovies();
-
+        Log.d(LOG_TAG, "Leaving to onCreateView");
         return rootView;
     }
 
     private void fetchMovies() {
 
-       /* Integer callQuery;
+        String callQuery;
 
         switch (mQueryFetch) {
             case PagerAdapter.POPULAR:
@@ -74,21 +79,24 @@ public class  GenericFragment extends Fragment implements FetchMoviesTask.AsyncR
             default:
                 return;
 
-        }*/
+        }
 
-        new FetchMoviesTask(getContext(), this).execute(mQueryFetch);
+        new FetchMoviesTask(getContext(), this).execute(callQuery);
     }
 
 
     private void initializeRecyclerView(RecyclerView recyclerView) {
+        Log.d(LOG_TAG, "Initializing  the recyclerView");
         recyclerView.setAdapter(new MovieCustomAdapter((MainActivity) getActivity()));
     }
 
 
     @Override
     public void processMovies(List<MovieEntity> movies) {
+        Log.d(LOG_TAG, "Entering on processMovies");
         MovieCustomAdapter movieCustomAdapter = (MovieCustomAdapter) mRecyclerView.getAdapter();
         movieCustomAdapter.setmMovies(movies);
         movieCustomAdapter.notifyDataSetChanged();
+        Log.d(LOG_TAG, "Leaving on processMovies");
     }
 }

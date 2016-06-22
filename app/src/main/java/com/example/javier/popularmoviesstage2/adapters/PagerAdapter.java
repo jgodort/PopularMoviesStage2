@@ -2,9 +2,8 @@ package com.example.javier.popularmoviesstage2.adapters;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentStatePagerAdapter;
+import android.support.v4.app.FragmentPagerAdapter;
 
-import com.example.javier.popularmoviesstage2.R;
 import com.example.javier.popularmoviesstage2.Utils.Constants;
 
 import java.util.List;
@@ -13,7 +12,7 @@ import java.util.List;
  * Created by javie on 29/05/2016.
  */
 
-public class PagerAdapter extends FragmentStatePagerAdapter {
+public class PagerAdapter extends FragmentPagerAdapter {
     public static final int POPULAR = 0;
     public static final int TOP_RATED = 1;
     public static final int FAVORITES = 2;

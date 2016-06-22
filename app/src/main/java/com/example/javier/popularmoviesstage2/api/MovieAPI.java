@@ -9,6 +9,7 @@ import com.example.javier.popularmoviesstage2.Utils.NetworkUtils;
 import com.example.javier.popularmoviesstage2.Utils.MovieDatabaseUtils;
 import com.example.javier.popularmoviesstage2.model.MovieEntity;
 import com.example.javier.popularmoviesstage2.model.ReviewEntity;
+import com.example.javier.popularmoviesstage2.model.TrailerMovieEntity;
 
 import java.io.BufferedReader;
 import java.io.IOException;
@@ -40,7 +41,8 @@ public class MovieAPI {
     private static final String SECURED_SCHEME = "https";
     private static final String MOVIE_DB_BASE_URI = "api.themoviedb.org";
     private static final String MOVIE_DB_IMAGE_URI = "image.tmdb.org";
-    private static final String YOUTUBE_API_BASE_URI = "www.youtube.com";
+    private static final String YOUTUBE_BASE_URI = "www.youtube.com";
+    private static final String YOUTUBE_IMAGE_URI = "img.youtube.com";
     private static final String MOVIE_T = "t";
     private static final String MOVIE_P = "p";
     private static final String NUMBER_THREE = "3";
@@ -51,7 +53,9 @@ public class MovieAPI {
     private static final String VIDEOS_QUERY = "videos";
     private static final String REVIEWS_QUERY = "reviews";
     private static final String API_KEY_PARAM = "api_key";
-    private static final String VIDEO_PARAM = "v";
+    private static final String VIDEO_PARAM_YOUTUBE = "v";
+    private static final String VIDEO_IMAGE_PARAM_YOUTUBE = "vi";
+    private static final String VIDEO_THUMBNAIL_IMAGE_YOUTUBE = "default.jpg";
 
     public static class ImageSizes {
         public static final String W92 = "w92";
@@ -140,7 +144,7 @@ public class MovieAPI {
                     Log.i(LOG_TAG, "The criteria query obtain " + objectObtained.size() + "reviews");
                     break;
                 case VIDEOS_QUERY:
-                    objectObtained = new JsonParserMovieAPI().parseMoviesJson(jsonString);
+                    objectObtained = new JsonParserMovieAPI().parseMovieTrailerJson(jsonString);
                     Log.i(LOG_TAG, "The criteria query obtain " + objectObtained.size() + "videos");
                     break;
                 case POPULAR_QUERY:
@@ -189,8 +193,15 @@ public class MovieAPI {
         return results;
     }
 
-    public static List<String> getVideosMovie() {
-        return null;
+    public static List<TrailerMovieEntity> getMovieTrailers(Context context, String idMovie) {
+        List<TrailerMovieEntity> results = null;
+
+        try {
+            results = callMovieDBApi(context, VIDEOS_QUERY, idMovie);
+        } catch (Exception e) {
+            Log.e(LOG_TAG, "Error fetching the trailes", e);
+        }
+        return results;
     }
 
 
@@ -305,6 +316,40 @@ public class MovieAPI {
                 .appendPath(MOVIE_P)
                 .appendPath(size)
                 .appendPath(moviePath);
+
+        //TODO: Remove the trace
+        Log.d(LOG_TAG, "URL: " + builder.build().toString());
+        //return the URL String.
+        return builder.build().toString();
+    }
+
+
+    /**
+     * http://img.youtube.com/vi/{id}/default.jpg
+     *
+     * @param idVideo
+     * @return
+     */
+    public static String youtubeThumbnailUriBuilder(String idVideo) {
+        final Uri.Builder builder = new Uri.Builder();
+        builder.scheme(SCHEME)
+                .authority(YOUTUBE_IMAGE_URI)
+                .appendPath(VIDEO_IMAGE_PARAM_YOUTUBE)
+                .appendPath(idVideo)
+                .appendPath(VIDEO_THUMBNAIL_IMAGE_YOUTUBE);
+
+        //TODO: Remove the trace
+        Log.d(LOG_TAG, "URL: " + builder.build().toString());
+        //return the URL String.
+        return builder.build().toString();
+    }
+
+    public static String youtubeVideoURL(String videoKey) {
+        final Uri.Builder builder = new Uri.Builder();
+        builder.scheme(SCHEME)
+                .authority(YOUTUBE_BASE_URI)
+                .appendPath(WATCH_PATH_QUERY)
+                .appendQueryParameter(VIDEO_PARAM_YOUTUBE,videoKey);
 
         //TODO: Remove the trace
         Log.d(LOG_TAG, "URL: " + builder.build().toString());

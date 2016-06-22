@@ -8,4 +8,8 @@
     <string name="popular_tag" translatable="false">Popular</string>
     <string name="topRated_tag" translatable="false">Top Rated</string>
     <string name="favorites_tag" translatable="false">Favorites</string>
+    <string name="overview_text" translatable="true">Overview</string>
+    <string name="originalTitle" translatable="true">Original Title</string>
+    <string name="quality_text" translatable="true">Quality:</string>
+    <string name="source_text" translatable="true">Source:</string>
 </resources>

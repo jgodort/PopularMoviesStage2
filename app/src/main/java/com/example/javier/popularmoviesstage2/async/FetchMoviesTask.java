@@ -16,15 +16,16 @@ import java.util.List;
 /**
  * Created by javie on 28/03/2016.
  */
-public class FetchMoviesTask extends AsyncTask<Integer, Void, List<MovieEntity>> {
+public class FetchMoviesTask extends AsyncTask<String, Void, List<MovieEntity>> {
 
+    private final String LOG_TAG = FetchMoviesTask.class.getSimpleName();
     public AsyncResponse delegate;
-    private final String LOG_TAG = this.getClass().getName();
 
     private Context mContext;
 
 
     public FetchMoviesTask(Context context, AsyncResponse vdelegate) {
+        Log.d(LOG_TAG,"Initializing the FetchMovieTask");
         mContext = context;
         delegate = vdelegate;
 
@@ -46,25 +47,24 @@ public class FetchMoviesTask extends AsyncTask<Integer, Void, List<MovieEntity>>
      * @see #publishProgress
      */
     @Override
-    protected List<MovieEntity> doInBackground(Integer... params) {
-
+    protected List<MovieEntity> doInBackground(String... params) {
+        Log.d(LOG_TAG,"Entering to doInBackground");
         if (params.length == 0) {
             return null;
         }
 
-        Integer selectedCall = params[0];
+        String selectedCall = params[0];
         List<MovieEntity> moviesObtained = new ArrayList<MovieEntity>();
 
 
         switch (selectedCall) {
-            case PagerAdapter.POPULAR:
+            case MovieAPI.POPULAR_CALL:
                 moviesObtained = MovieAPI.getPopularMovies(mContext);
                 break;
-            case PagerAdapter.TOP_RATED:
+            case MovieAPI.TOP_CALL:
                 moviesObtained = MovieAPI.getTopRatedMovies(mContext);
                 break;
-
-            case PagerAdapter.FAVORITES:
+            case MovieAPI.FAVORITES_CALL:
                 moviesObtained = MovieAPI.getFavoritesMovies(mContext);
                 break;
             default:

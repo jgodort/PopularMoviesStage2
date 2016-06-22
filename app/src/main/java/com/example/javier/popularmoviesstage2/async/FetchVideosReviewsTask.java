@@ -2,9 +2,11 @@ package com.example.javier.popularmoviesstage2.async;
 
 import android.content.Context;
 import android.os.AsyncTask;
+import android.util.Pair;
 
 import com.example.javier.popularmoviesstage2.api.MovieAPI;
 import com.example.javier.popularmoviesstage2.model.ReviewEntity;
+import com.example.javier.popularmoviesstage2.model.TrailerMovieEntity;
 
 import java.util.List;
 
@@ -12,7 +14,7 @@ import java.util.List;
  * Created by javie on 12/06/2016.
  */
 
-public class FetchVideosReviewsTask extends AsyncTask<Long, Void, List<ReviewEntity>> {
+public class FetchVideosReviewsTask extends AsyncTask<Long, Void, Pair<List<ReviewEntity>,List<TrailerMovieEntity>>> {
 
     public AsyncResponse mDelegate;
     private Context mContext;
@@ -23,20 +25,22 @@ public class FetchVideosReviewsTask extends AsyncTask<Long, Void, List<ReviewEnt
     }
 
     @Override
-    protected List<ReviewEntity> doInBackground(Long... params) {
+    protected Pair<List<ReviewEntity>,List<TrailerMovieEntity>> doInBackground(Long... params) {
 
         Long idMovie=params[0];
         List<ReviewEntity> obtainedReviews= MovieAPI.getReviewsMovie(mContext,idMovie.toString());
-        return obtainedReviews;
+        List<TrailerMovieEntity> obtainedTrailer=MovieAPI.getMovieTrailers(mContext, idMovie.toString());
+
+        return new Pair<>(obtainedReviews,obtainedTrailer);
     }
 
     @Override
-    protected void onPostExecute(List<ReviewEntity> reviewEntities) {
+    protected void onPostExecute(Pair<List<ReviewEntity>,List<TrailerMovieEntity>> reviewEntities) {
         mDelegate.processReviews(reviewEntities);
         super.onPostExecute(reviewEntities);
     }
 
     public interface AsyncResponse {
-        void processReviews(List<ReviewEntity> reviewEntities);
+        void processReviews(Pair<List<ReviewEntity>,List<TrailerMovieEntity>> entities);
     }
 }

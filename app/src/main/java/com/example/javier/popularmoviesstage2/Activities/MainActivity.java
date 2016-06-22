@@ -14,6 +14,7 @@ import com.example.javier.popularmoviesstage2.adapters.PagerAdapter;
 import com.example.javier.popularmoviesstage2.fragments.GenericFragment;
 
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
@@ -47,14 +48,14 @@ public class MainActivity extends AppCompatActivity {
         TabLayout tabLayout = (TabLayout) findViewById(R.id.tab_layout);
         ViewPager viewPager = (ViewPager) findViewById(R.id.viewPager);
 
-        List<Integer> lqueryCodes = new ArrayList<>();
+        LinkedList<Integer> lqueryCodes = new LinkedList<>();
         //Configuring the tabLayout and the queryCode List.
         tabLayout.addTab(tabLayout.newTab().setText(Constants.POPULAR_MOVIES_TEXT));
-        lqueryCodes.add(PagerAdapter.POPULAR);
+        lqueryCodes.add(PagerAdapter.POPULAR,PagerAdapter.POPULAR);
         tabLayout.addTab(tabLayout.newTab().setText(Constants.TOP_RATED_MOVIES_TEXT));
-        lqueryCodes.add(PagerAdapter.TOP_RATED);
+        lqueryCodes.add(PagerAdapter.TOP_RATED,PagerAdapter.TOP_RATED);
         tabLayout.addTab(tabLayout.newTab().setText(Constants.MY_FAVORITES_TEXT));
-        lqueryCodes.add(PagerAdapter.FAVORITES);
+        lqueryCodes.add(PagerAdapter.FAVORITES,PagerAdapter.FAVORITES);
 
         List<Fragment> listFraments = new ArrayList<>();
 
@@ -68,6 +69,7 @@ public class MainActivity extends AppCompatActivity {
 
         viewPager.setAdapter(new PagerAdapter(getSupportFragmentManager(), listFraments));
         tabLayout.setupWithViewPager(viewPager);
+
     }
 
 

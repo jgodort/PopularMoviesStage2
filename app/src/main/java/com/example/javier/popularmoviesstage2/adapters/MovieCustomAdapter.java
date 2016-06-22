@@ -45,7 +45,7 @@ public class MovieCustomAdapter extends RecyclerView.Adapter<MovieCustomAdapter.
     @Override
     public void onBindViewHolder(ViewHolder holder, int position) {
         final MovieEntity movieEntity = mMovies.get(position);
-        Picasso.with(mMainActivity).load(MovieAPI.moviePosterUriBuilder(MovieAPI.ImageSizes.W185, movieEntity.getPosterPath().substring(1))).into(holder.mImageView);
+        Picasso.with(mMainActivity).load(MovieAPI.moviePosterUriBuilder(MovieAPI.ImageSizes.W154, movieEntity.getPosterPath().substring(1))).into(holder.mImageView);
 
         holder.mImageView.setOnClickListener(new View.OnClickListener() {
             @Override

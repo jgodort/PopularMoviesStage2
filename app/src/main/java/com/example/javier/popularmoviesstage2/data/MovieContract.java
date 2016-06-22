@@ -52,9 +52,8 @@ public class MovieContract {
         public static final int COL_MOVIE_SYNOPSIS = 3;
         public static final int COL_MOVIE_RATING = 4;
         public static final int COL_MOVIE_RELEASE_DATE = 5;
-        public static final int COL_MOVIE_BDPATH_POSTER=6;
-        public static final int COL_MOVIE_POPULARITY=7;
-
+        public static final int COL_MOVIE_BDPATH_POSTER = 6;
+        public static final int COL_MOVIE_POPULARITY = 7;
 
 
         public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_MOVIE).build();
@@ -76,9 +75,8 @@ public class MovieContract {
         public static final String SYNOPSIS = "SYNOPSYS";
         public static final String RATING = "RATING";
         public static final String RELEASE_DATE = "RELEASEDATE";
-        public static final String BDPATH_POSTER="BDPATH_POSTER";
-        public static final String POPULARITY="POPULARITY";
-
+        public static final String BDPATH_POSTER = "BDPATH_POSTER";
+        public static final String POPULARITY = "POPULARITY";
 
 
         public static Uri buildMovieUri(long id) {

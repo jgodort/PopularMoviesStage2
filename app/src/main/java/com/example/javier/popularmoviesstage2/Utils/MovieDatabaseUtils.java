@@ -3,6 +3,7 @@ package com.example.javier.popularmoviesstage2.Utils;
 import android.content.ContentValues;
 import android.content.Context;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.example.javier.popularmoviesstage2.data.MovieContract;
 import com.example.javier.popularmoviesstage2.model.MovieEntity;
@@ -17,7 +18,15 @@ import java.util.List;
 
 public class MovieDatabaseUtils {
 
+    private static final String LOG_TAG = MovieDatabaseUtils.class.getSimpleName();
+
+    public static final int INSERT_OPERATION = 0;
+    public static final int DELETE_OPERATION = 1;
+
+
     public static void insertFavoriteMovie(Context context, MovieEntity movie) {
+
+        Log.d(LOG_TAG, "entering to insertFavoriteMovie method");
 
         ContentValues values = new ContentValues();
         values.put(MovieContract.MovieEntry._ID, movie.getId());
@@ -30,9 +39,12 @@ public class MovieDatabaseUtils {
         values.put(MovieContract.MovieEntry.POPULARITY, movie.getPopularity());
 
         context.getContentResolver().insert(MovieContract.MovieEntry.CONTENT_URI, values);
+        Log.d(LOG_TAG, "leaving to insertFavoriteMovie method");
     }
 
     public static boolean deleteFavoriteMovie(Context context, Long movieId) {
+
+        Log.d(LOG_TAG, "entering to deleteFavoriteMovie method");
 
         String where_clause = MovieContract.MovieEntry._ID + " = ?";
         String[] selectionArgs = {Long.toString(movieId)};
@@ -42,11 +54,13 @@ public class MovieDatabaseUtils {
                 where_clause,
                 selectionArgs);
 
+
+        Log.d(LOG_TAG, "leaving to deleteFavoriteMovie method");
         return idDeleted != 0;
     }
 
     public static boolean isMovieInserted(Context context, Long movieId) {
-
+        Log.d(LOG_TAG, "entering to isMovieInserted method");
         String[] projection = {MovieContract.MovieEntry._ID};
         String where_clause = MovieContract.MovieEntry._ID + " = ?";
         String[] selectionArgs = {Long.toString(movieId)};
@@ -65,10 +79,13 @@ public class MovieDatabaseUtils {
             }
         }
         cursor.close();
+
+        Log.d(LOG_TAG, "leaving to isMovieInserted method");
         return idObtained != 0;
     }
 
     public static List<MovieEntity> obtainFavoritesFromDB(Context context) {
+        Log.d(LOG_TAG, "entering to obtainFavoritesFromDB method");
         List<MovieEntity> listFavoriteMovies = null;
         Cursor cursor = context.getContentResolver().query(
                 MovieContract.MovieEntry.CONTENT_URI,
@@ -94,7 +111,7 @@ public class MovieDatabaseUtils {
             }
         }
         cursor.close();
-
+        Log.d(LOG_TAG, "leaving to obtainFavoritesFromDB method");
         return listFavoriteMovies;
     }
 

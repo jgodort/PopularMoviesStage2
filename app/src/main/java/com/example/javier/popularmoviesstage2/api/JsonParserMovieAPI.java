@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.example.javier.popularmoviesstage2.model.MovieEntity;
 import com.example.javier.popularmoviesstage2.model.ReviewEntity;
+import com.example.javier.popularmoviesstage2.model.TrailerMovieEntity;
 
 import org.json.JSONArray;
 import org.json.JSONException;
@@ -38,8 +39,17 @@ public class JsonParserMovieAPI {
     private static final String RESULTS = "results";
     private static final String GENRES = "genres";
 
+
     private static final String AUTHOR = "author";
     private static final String CONTENT = "content";
+
+    private static final String ISO_639_1 = "iso_639_1";
+    private static final String ISO_3166_1 = "iso_3166_1";
+    private static final String KEY = "key";
+    private static final String NAME = "name";
+    private static final String SITE = "site";
+    private static final String SIZE = "size";
+    private static final String TYPE = "type";
 
 
     public List<MovieEntity> parseMoviesJson(String moviesJsonStr)
@@ -106,6 +116,36 @@ public class JsonParserMovieAPI {
                         authorValue, contentValue);
 
                 results.add(review);
+            }
+
+        } catch (JSONException e) {
+            Log.e(LOG_TAG, "Error handling JSON Object", e);
+            e.printStackTrace();
+        }
+        return results;
+    }
+
+    public List<TrailerMovieEntity> parseMovieTrailerJson(String jsonString) {
+        List<TrailerMovieEntity> results = new ArrayList<>();
+
+        try {
+            JSONArray reviewArray = new JSONObject(jsonString).getJSONArray(RESULTS);
+
+            for (int i = 0; i < reviewArray.length(); i++) {
+
+                String idValue = reviewArray.getJSONObject(i).getString(ID);
+                String iso_639_1 = reviewArray.getJSONObject(i).getString(ISO_639_1);
+                String iso_3166_1 = reviewArray.getJSONObject(i).getString(ISO_3166_1);
+                String key = reviewArray.getJSONObject(i).getString(KEY);
+                String name = reviewArray.getJSONObject(i).getString(NAME);
+                String site = reviewArray.getJSONObject(i).getString(SITE);
+                String size = reviewArray.getJSONObject(i).getString(SIZE);
+                String type = reviewArray.getJSONObject(i).getString(TYPE);
+                // Get the JSON object representing the review
+                TrailerMovieEntity movieTrailer = new TrailerMovieEntity(idValue,
+                        iso_639_1, iso_3166_1, key, name, site, size, type);
+
+                results.add(movieTrailer);
             }
 
         } catch (JSONException e) {
