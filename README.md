@@ -14,6 +14,8 @@ A movie catalog app that show you the **Most Popular**, **Top Rated** movies alo
 ### Screenshots:
 ![nexus6 gif](https://github.com/jgodort/PopularMoviesStage2/blob/master/screenshots/giphy.gif?raw=true)
 
+__GIF by: https://giphy.com __ 
+
 ![nexus6ptab](https://github.com/jgodort/PopularMoviesStage2/blob/master/screenshots/nexus6_popular_tab.png?raw=true)
 
 ![nexus6ftab](https://github.com/jgodort/PopularMoviesStage2/blob/master/screenshots/nexus6_favorites_tab.png?raw=true)
@@ -27,7 +29,7 @@ A movie catalog app that show you the **Most Popular**, **Top Rated** movies alo
 
 ### Requirements:
 
-This applications use the public `API` of https://www.themoviedb.org/ to access the latest movie information. The only requirement is obtain your own API KEY to retrieve the information of the movies. You can find all the information about the API at https://www.themoviedb.org/documentation/api.
+This application use the public `API` of https://www.themoviedb.org/ to access the latest movie information. The only requirement is obtain your own API KEY to retrieve the information of the movies. You can find all the information about the API at https://www.themoviedb.org/documentation/api.
 
 ### Contributions
 
